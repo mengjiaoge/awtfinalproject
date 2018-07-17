@@ -1,0 +1,55 @@
+<div *ngIf="!activeCourseId">
+	<div *ngFor="let course of courses"  class="panel panel-default">
+		<div class="panel-heading"><strong>{{course.title}} </strong></div>
+		<div class="panel-body ">
+		<br/><br/><br/>
+			<div class="">
+			<strong>Description:</strong>{{course.description}}
+			</div>
+			<div >
+				<strong>Lecturer ID:</strong> {{course.lecturer}}
+			</div>
+		</div>
+		<div>
+			<a [routerLink]="['/courses', course._id]" class="btn btn-info">sessions</a>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="activeCourseId">
+	<div class="panel panel-default">
+	<div *ngFor="let course of courses" >
+		<div class="col-md-11 panel-heading">
+			<h3 >{{course.title}}</h3>
+			<p>{{course.description}}</p>
+		</div>
+		<div class="panel-body ">
+			<br/><br/><br/><br/><br/>
+		<div *ngIf="course.passKey">
+			<form (submit)="checkPassKey(course)">
+				<label for="">Please enter passkey of the course:</label>
+				<input name="passKey" type="text" [(ngModel)]="passKey" class="form-control input-inline">
+				<button class="btn btn-primary" type="submit">Submit</button>
+				<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+					<i>{{errorMessage}}</i>
+				</div>
+			</form>
+		</div>
+		<div *ngIf="!course.passKey" >
+			<ul>
+				<li *ngFor="let session of course.sessions" >
+					<a href="./questions/questions?_id={{session._id}}">
+						{{session.title}}
+					</a>
+				</li>
+				<a class="nav-link" [routerLink]="['/sessions/add', course._id]"
+				   *ngIf="currentUser && currentUser.lecturer">
+					<i class="glyphicon glyphicon-list-alt"></i>
+					Add a session
+				</a>
+			</ul>
+		</div>
+		</div>
+	</div>
+	</div>
+</div>

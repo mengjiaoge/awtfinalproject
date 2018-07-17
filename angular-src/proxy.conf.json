@@ -1,0 +1,15 @@
+
+{
+  "/api": {
+    "target":  "http://93.90.201.201:3000",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  },
+  "/socket.io":{
+    "target":  "http://93.90.201.201:3000",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  }
+}

@@ -1,0 +1,20 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<app-header></app-header>
+<app-nav></app-nav>
+<!-- <div class="col-md-10"> -->
+<div [class]="loggedIn() ? 'col-md-10' : 'col-md-12 first-page'">
+	<div class="row">
+		<div class="col-lg-12 page">
+			<div *ngIf="!loggedIn()">
+				<flash-messages></flash-messages>
+			</div>
+			<div class="panel-body" *ngIf="permission()">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+	</div>
+</div>
+<footer>
+	<p>Made with
+		<span>♥</span> by Brute Force</p>
+</footer>

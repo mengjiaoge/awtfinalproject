@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3>
+          {{currentUser.name}} {{currentUser.lastname}}
+        </h3>
+        <p>{{currentUser.description}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Courses</h6>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div *ngFor="let course of courses" class="media text-muted pt-3">
+          <div class="media-body pb-3 mb-0 small lh-125">
+            <strong class="d-block text-gray-dark">
+              <a [routerLink]="['/courses', course._id]">
+                {{course.title}}
+              </a>
+            </strong>
+            <br> {{course.description}}
+          </div>
+        </div>
+        <small class="d-block pull-right mt-3">
+          <a routerLink="/courses">
+            All courses
+          </a>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isLecturer()" class="row">
+  <div class="col-lg-12">
+    <a routerLink="/courses/add" class="btn btn-primary">
+      Add a course
+    </a>
+  </div>
+</div>

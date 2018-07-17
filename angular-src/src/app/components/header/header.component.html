@@ -1,0 +1,19 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">
+        <img height="50" alt="feeqly" src="/assets/logo.png">
+      </a>
+    </div>
+    <div class="navbar-text navbar-right">
+      <div *ngIf="!loggedIn()">
+        <a routerLink="/login" class="btn btn-primary navbar-btn">Login</a>
+        <a routerLink="/register" class="btn btn-default navbar-btn">Register</a>
+      </div>
+      <div *ngIf="loggedIn()">
+        <a *ngIf="currentUser" routerLink="/profile" class="navbar-link">{{currentUser.firstname}} {{currentUser.lastname}}</a>
+        <button (click)="logout()" class="btn btn-primary navbar-btn">Logout</button>
+      </div>
+    </div>
+  </div>
+</nav>
