@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
     selector: 'app-courses',
@@ -14,11 +14,28 @@ export class CoursesComponent implements OnInit {
     passKey: string;
     errorMessage: string;
     currentUser = JSON.parse(localStorage.getItem('user'));
+    ssKeys = [];
+    
 
-    constructor(
-        public http: HttpClient,
-        private route: ActivatedRoute
-    ) {
+    constructor(public http: HttpClient,
+                private route: ActivatedRoute,
+                private router:Router
+    ) {}
+    
+    isPassKeySet(course) {
+        if (course.passKey=='')return true;
+        var setSsKeys = JSON.parse(localStorage.getItem('ssKeys'));
+        if (setSsKeys !== null) {
+            if (setSsKeys.indexOf(course.passKey) != -1) {
+                return true;
+            }else return false;
+        } else return false;
+    }
+
+    setPassKeysGiven(courses) {
+        this.ssKeys.push(this.passKey);
+        localStorage.setItem('ssKeys', JSON.stringify(this.ssKeys));
+        console.log('here', this.passKey, localStorage.getItem('ssKeys'));
     }
 
     ngOnInit() {
@@ -32,17 +49,20 @@ export class CoursesComponent implements OnInit {
 
     addCourses(submittedData) {
         const url = '/api/courses/add';
-        this.http.post(url, submittedData, { headers: { 'Content-Type': 'application/json' } }).subscribe(result => {
+        this.http.post(url, submittedData, {headers: {'Content-Type': 'application/json'}}).subscribe(result => {
             console.log(result);
         });
     }
 
     checkPassKey(course) {
-        if (course.passKey === this.passKey) {
-            course.passKey = '';
-        } else {
-            this.errorMessage = 'The passkey is wrong';
+        if (!this.isPassKeySet(course)) {
+            if (course.passKey === this.passKey) {
+                this.setPassKeysGiven(course);
+            } else {
+                this.errorMessage = 'The passkey is wrong';
+            }
         }
+
     }
 
     getCourseSessions(id) {

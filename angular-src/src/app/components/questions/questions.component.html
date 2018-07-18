@@ -14,125 +14,134 @@
 <br/>
 <br/>
 
-	
-	
-	<!-- New Blog Form -->
-	<form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
-		<!-- Title Input -->
-		
-		<div class="form-group">
-			<label for="title">Title</label>
-			<div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
-				<!-- Title Input -->
-				<input type="text" name="title" class="form-control" placeholder="*Question Title" autocomplete="off"
-				       formControlName="title"/>
-				<!-- Validation -->
-				<ul class="help-block">
-					<li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is
-						required.
-					</li>
-					<li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">
-						Max length: 50, Min length: 5
-					</li>
-					<li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be
-						a letter or number
-					</li>
-				</ul>
-			</div>
-		</div>
-		
-		<!-- Body Input -->
-		<div class="form-group">
-			<label for="body">Body</label>
-			<div [ngClass]="{'has-success': form.controls.body.valid}">
-				<!-- Body Input -->
-				<textarea name="body" rows="8" cols="80" placeholder="*Body" class="form-control"
-				          formControlName="body"></textarea>
-				<!-- Validation -->
-				<ul class="help-block">
-					<li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">This field is
-						required.
-					</li>
-					<li *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength) || (form.controls.body.dirty && form.controls.body.errors?.maxlength)">
-						Max length: 500, Min length: 5
-					</li>
-				</ul>
-			</div>
-		</div>
-		
-		<!-- Go Back Button -->
-		<button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Go Back
-		</button>
-		<!-- Submit Button -->
-		<button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">Submit
-		</button>
-	
-	</form>
 
+<!-- New Blog Form -->
+<form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+	<!-- Title Input -->
+	
+	<div class="form-group">
+		<label for="title">Title</label>
+		<div [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
+			<!-- Title Input -->
+			<input type="text" name="title" class="form-control" placeholder="*Question Title" autocomplete="off"
+			       formControlName="title"/>
+			<!-- Validation -->
+			<ul class="help-block">
+				<li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is
+					required.
+				</li>
+				<li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">
+					Max length: 50, Min length: 5
+				</li>
+				<li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be
+					a letter or number
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<!-- Body Input -->
+	<div class="form-group">
+		<label for="body">Body</label>
+		<div [ngClass]="{'has-success': form.controls.body.valid}">
+			<!-- Body Input -->
+			<textarea name="body" rows="8" cols="80" placeholder="*Body" class="form-control"
+			          formControlName="body"></textarea>
+			<!-- Validation -->
+			<ul class="help-block">
+				<li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">This field is
+					required.
+				</li>
+				<li *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength) || (form.controls.body.dirty && form.controls.body.errors?.maxlength)">
+					Max length: 500, Min length: 5
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<!-- Go Back Button -->
+	<button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">Go Back
+	</button>
+	<!-- Submit Button -->
+	<button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">Submit
+	</button>
+
+</form>
 
 
 <div *ngFor="let question of questions">
-<!-- Panel Start -->
-<div *ngIf="!newPost">
-	<!-- Panel Outer Layer -->
-	<div class="panel panel-primary">
-		
-		<!-- Panel Title -->
-		<div class="panel-heading">
-			<h3 class="panel-title">{{question.title}}</h3>
-		</div>
-		
-		<!-- Panel Body -->
-		<div class="panel-body">
-			{{question.body}}
-		</div>
-		
-		<!-- Panel Footer Start -->
-		<div class="panel-footer">
-			<strong>Posted by: </strong>{{question.createdBy.firstname}} {{question.createdBy.lastname}}
-			<br/>
-			<strong>Date: </strong>{{question.createdAt}}
-			<div>
-				<strong>Likes: </strong>{{question.likes}}
-			</div>
-			
-			<!-- Edit Button -->
-			<a>
-				<button type="button" name="button" class="btn btn-sm btn-info">Edit</button>
-			</a>
-			<a>
-				<button type="button" name="button" class="btn btn-sm btn-danger">Delete</button>
-			</a>
-			
-			<!-- Likes Dropdown  -->
-			<div class="dropdown">
-				<!-- Like Button -->
-				<button type="button" name="button" class="btn btn-sm btn-success"><span
-						class="glyphicon glyphicon-thumbs-up">&nbsp;</span>Likes:21
-				</button>
-				<!-- Dropdown Menu Items -->
-				<div class="dropdown-content">
-					<a href="#">a</a>
-					<a href="#">b</a>
-					<a href="#">c</a>
+	<!-- Panel Start -->
+	<form #newAnswer="ngForm" [formGroup]="newAnswerForm" name="newAnswer" class="form-inline ">
+		<div *ngIf="!newPost" >
+			<!-- Panel Outer Layer -->
+			<div class="panel panel-primary">
+				<!-- Panel Title -->
+				<div class="panel-heading">
+					<h3 class="panel-title" >{{question.title}}</h3>
 				</div>
+				<!-- Panel Body -->
+				<div class="panel-body">
+					{{question.body}}
+				</div>
+				<!-- Panel Footer Start -->
+				<div class="panel-footer">
+					<strong>Posted by: </strong>{{question.createdBy.firstname}} {{question.createdBy.lastname}}
+					<br/>
+					<strong>Date: </strong>{{question.createdAt}}
+					<div>
+						<strong>Likes: </strong>{{question.likes.length}}
+					</div>
+					<!-- Like Button -->
+					<div class="dropdown">
+						<button type="button" name="button" class="btn btn-sm btn-success"><span
+								class="glyphicon glyphicon-chevron-up"
+								(click)="postLike(question._id)">&nbsp;</span>{{question.likes.length}}
+						</button>
+					</div>
+					
+					<button type="button" name="showanswers"
+					        *ngIf="!answersGivenShow"
+					        (click)="toggle()" class="btn btn-sm btn-success" ><span
+					>&nbsp;</span>Show Given Answers
+					</button>
+					<div #answersGiven [hidden]="isOn">
+						<h4>Answers</h4>
+						<div *ngFor="let answer of question.answers">
+							<input type="hidden" value="false" #answersGivenShow>
+							<div class="comment-head">
+							
+							</div>
+							<div class="comment-content">
+								{{answer.text}}
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
+				<!-- Panel Footer End -->
+				
+				<ul class="list-group">
+					<li class="list-group-item">
+						<!-- Post Comment Button -->
+						<!--<button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment()">Answer-->
+						<!--Question-->
+						<!--</button>-->
+						<div #answers class=""></div>
+						<div>
+							<div class="form-group">
+								<input type="text" name="answer" class="form-control" #answer>
+								<button type="submit" name="button"
+								        class="btn btn-info"
+								        *ngIf="!newPost" (click)="postAnswer(answer.value,question._id)">
+									Post Answer
+								</button>
+							</div>
+						</div>
+					</li>
+				</ul>
 			</div>
 		</div>
-		<!-- Panel Footer End -->
-		
-		<ul class="list-group">
-			<li class="list-group-item">
-				<!-- Post Comment Button -->
-				<button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment()">Answer
-					Question
-				</button>
-				<br/>
-				<br/>
-			
-			</li>
-		</ul>
-	
-	
-	</div>
+	</form>
 </div>
-</div>
+

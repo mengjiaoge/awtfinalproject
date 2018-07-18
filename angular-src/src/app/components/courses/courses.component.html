@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div>
-			<a [routerLink]="['/courses', course._id]" class="btn btn-info">sessions</a>
+			<a [routerLink]="['/courses', course._id]" class=" btn btn-info">sessions</a>
 		</div>
 	</div>
 </div>
@@ -25,7 +25,7 @@
 		</div>
 		<div class="panel-body ">
 			<br/><br/><br/><br/><br/>
-		<div *ngIf="course.passKey">
+		<div *ngIf="!isPassKeySet(course)">
 			<form (submit)="checkPassKey(course)">
 				<label for="">Please enter passkey of the course:</label>
 				<input name="passKey" type="text" [(ngModel)]="passKey" class="form-control input-inline">
@@ -35,7 +35,7 @@
 				</div>
 			</form>
 		</div>
-		<div *ngIf="!course.passKey" >
+		<div *ngIf="isPassKeySet(course)" >
 			<ul>
 				<li *ngFor="let session of course.sessions" >
 					<a [routerLink]="['/question', course._id]">
