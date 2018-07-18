@@ -38,7 +38,7 @@
 		<div *ngIf="!course.passKey" >
 			<ul>
 				<li *ngFor="let session of course.sessions" >
-					<a href="./questions/questions?_id={{session._id}}">
+					<a [routerLink]="['/question', course._id]">
 						{{session.title}}
 					</a>
 				</li>

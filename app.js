@@ -13,7 +13,7 @@ const app = express();
 //Using Express router that all the user routes will put in a separate file
 var users = require('./routes/users');
 
-const port = 3000;
+const port = process.env.PORT||8080;
 //Connect To Database
 mongoose.connect(config.database);
 

@@ -16,7 +16,7 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'courses', component: CoursesComponent },
     { path: 'courses/add', component: AddCourseComponent },
-    { path: 'questions',component: QuestionsComponent},
+    { path: 'question/:id',component: QuestionsComponent},
     { path: 'courses/:id', component: CoursesComponent },
     { path: 'sessions/add/:id', component: AddSessionComponent },
 ];

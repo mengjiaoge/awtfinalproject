@@ -6,7 +6,11 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 export class QuestionService {
 
     options;
-  constructor(
+    currentUser = JSON.parse(localStorage.getItem('user'));
+    currentCourse = JSON.parse(localStorage.getItem('course'));
+    currentSession = this.currentCourse.sessions;
+
+    constructor(
     private authService: AuthService,
     private http: Http   
   ) { }
@@ -25,14 +29,17 @@ export class QuestionService {
 
 // Function to create a new blog post
   newBlog(blog) {
-    this.createAuthenticationHeaders(); // Create headers
+        blog.user=this.currentUser;
+        blog.course=this.currentCourse;
+        blog.session=this.currentSession;
+
+      console.log(blog);
+      this.createAuthenticationHeaders(); // Create headers
     return this.http.post('api/blogs/newBlog', blog, this.options).map(res => res.json());
   }
 
-  // Function to get all blogs from the database
-  getAllBlogs() {
-    this.createAuthenticationHeaders(); // Create headers
-    return this.http.get('api/blogs/allBlogs', this.options).map(res => res.json());
-  }
+    getQuestions(courseAndSession){
+        return this.http.post('api/blogs/getQuestions', courseAndSession, this.options).map(res => res.json());
+    }
 
 }

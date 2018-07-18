@@ -16,8 +16,14 @@ export class QuestionsComponent implements OnInit {
   message;
   newPost = false;
   processing = false;
- // name;
-  blogPosts;
+  questions;
+  currentCourse=JSON.parse(localStorage.getItem('course'))
+  courseAndSession = {
+      course: this.currentCourse,
+  session:this.currentCourse[0].sessions
+  };
+
+    // name;
 
   constructor( 
     private formBuilder: FormBuilder,
@@ -27,7 +33,18 @@ export class QuestionsComponent implements OnInit {
      this.createNewBlogForm(); // Create new blog form on start up
    }
 
-
+    ngOnInit() {
+        this.form = new FormGroup({
+            title: new FormControl(),
+            body: new FormControl()
+        });
+        this.showQuestions();
+        // });
+        // Get profile username on page load
+        //this.authService.getProfile().subscribe(profile => {
+        //  this.name = profile.user.name; // Used when creating new blog posts and comments
+        // });
+    }
 
     // Function to create new blog form
     createNewBlogForm() {
@@ -61,18 +78,6 @@ export class QuestionsComponent implements OnInit {
     this.form.get('body').disable(); // Disable body field
   }
 
-    // Function to go back to previous page
-    goBack() {
-      window.location.reload(); // Clear all variable states
-    }
-
-  // Function to get all blogs from the database
-  getAllBlogs() {
-    // Function to GET all blogs from database
-    this.questionService.getAllBlogs().subscribe(data => {
-      this.blogPosts = data.blogs; // Assign array to use in HTML
-    });
-  }
     
   // Function to submit a new blog post
   onBlogSubmit() {
@@ -97,7 +102,7 @@ export class QuestionsComponent implements OnInit {
       } else {
         this.messageClass = 'alert alert-success'; // Return success class
         this.message = data.message; // Return success message
-        this.getAllBlogs();
+        //this.getAllBlogs();
         // Clear form data after two seconds
         setTimeout(() => {
           this.newPost = false; // Hide form
@@ -132,16 +137,34 @@ export class QuestionsComponent implements OnInit {
       
     }
 
-    ngOnInit() {
-      //todo get currentUser.name
-      //so that in the template the post can related to the user
-   
-  
-      
-      this.form = new FormGroup({
-          title: new FormControl(),
-          body: new FormControl()
-      });     
+    showQuestions(){
+      console.log(this.courseAndSession);
+        var courseAndSession=this.courseAndSession;
+        this.questionService.getQuestions(courseAndSession).subscribe(data => {
+            // Check if blog was saved to database or not
+            // if (!data.success) {
+            //     this.messageClass = 'alert alert-danger'; // Return error class
+            //     this.message = data.message; // Return error message
+            //     this.processing = false; // Enable submit button
+            //     this.enableFormNewBlogForm(); // Enable form
+            // } else {
+            //     this.messageClass = 'alert alert-success'; // Return success class
+            //     this.message = data.message; // Return success message
+            //     //this.getAllBlogs();
+            //     // Clear form data after two seconds
+            //     setTimeout(() => {
+            //         this.newPost = false; // Hide form
+            //         this.processing = false; // Enable submit button
+            //         this.message = false; // Erase error/success message
+            //         this.form.reset(); // Reset all form fields
+            //         this.enableFormNewBlogForm(); // Enable the form fields
+            //     }, 2000);
+            // }
+            console.log(data);
+            this.questions =data;
+        });
     }
+
+
 
 }

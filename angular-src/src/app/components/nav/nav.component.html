@@ -13,19 +13,13 @@
         Courses
       </a>
       <ul>
-        <li class="nav-item" *ngIf="currentUser && currentUser.lecturer">
+        <li class="nav-item" *ngIf="isLecturer()">
           <a class="nav-link" routerLink="/courses/add">
             <i class="glyphicon glyphicon-list-alt"></i>
             Add a course
           </a>
         </li>
       </ul>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/questions">
-        <i class="glyphicon glyphicon-question-sign"></i>
-        Questions
-      </a>
     </li>
   </ul>
 </div>

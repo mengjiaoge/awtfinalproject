@@ -48,6 +48,7 @@ export class CoursesComponent implements OnInit {
     getCourseSessions(id) {
         const url = '/api/courses/?id=';
         this.http.get(url + id).subscribe(result => {
+            localStorage.setItem('course', JSON.stringify(result));
             this.courses = result;
         });
     }

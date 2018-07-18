@@ -1,7 +1,7 @@
 var CoursesSchemaModel = require('../schemas/courses');
 var express = require('express');
 var router = express.Router();
-var question = require( './questions');
+var question = require( './question');
 
 router.use('/questions',question);
 router.post('/save', function (req, res) {

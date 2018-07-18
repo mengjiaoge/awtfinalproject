@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var users = require('./users');
 var course = require('./courses');
 
-var User = new users;
-var Course = new course;
+var User = users.userSchema;
+var Course = course.CoursesSchema;
 
 var QuestionSchema = mongoose.Schema({
 
@@ -17,7 +17,7 @@ var QuestionSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    sessions: {
+    session: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Course'
     },

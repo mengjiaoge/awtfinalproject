@@ -5,24 +5,6 @@ const mongoose = require('mongoose'); // Node Tool for MongoDB
 mongoose.Promise = global.Promise; // Configure Mongoose Promises
 const Schema = mongoose.Schema; // Import Schema from Mongoose
 
-
-// Blog Model Definition
-const blogSchema = new Schema({
-  title: { type: String, required: true, validate: titleValidators },
-  body: { type: String, required: true, validate: bodyValidators },
-  createdBy: { },
-  createdAt: { type: Date, default: Date.now() },
-  likes: { type: Number, default: 0 },
-  likedBy: { type: Array },
-  dislikes: { type: Number, default: 0 },
-  dislikedBy: { type: Array },
-  comments: [{
-    comment: { type: String, validate: commentValidators },
-    commentator: { type: String}
-  }]
-});
-
-
 // Validate Function to check blog title length
 let titleLengthChecker = (title) => {
   // Check if blog title exists
@@ -112,7 +94,23 @@ const commentValidators = [
   }
 ];
 
-
+// Blog Model Definition
+const blogSchema = new Schema({
+  title: { type: String, required: true, validate: titleValidators },
+  body: { type: String, required: true, validate: bodyValidators },
+  createdBy: { },
+  createdAt: { type: Date, default: Date.now() },
+  likes: { type: Number, default: 0 },
+  likedBy: { type: Array },
+  //dislikes: { type: Number, default: 0 },
+ // dislikedBy: { type: Array },
+  comments: [{
+    comment: { type: String, validate: commentValidators },
+    commentator: { type: String}
+  }],
+    course :{},
+    session:{}
+});
 
 // Export Module/Schema
 module.exports = mongoose.model('Blog', blogSchema);
