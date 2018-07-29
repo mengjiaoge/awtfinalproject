@@ -1,3 +1,16 @@
+## Feeqly
+
+This App is an online platform which provide this ability for Teachers and lecturers to interact in better way with their Audience. features like adding a course to course list, add sessions to each course, add question in each session and answer questions. 
+
+## Features 
+
+- Registeration and Login system
+- Course and session and question creation 
+- Two kind of user (student and Lecturer)
+- enroling in one course
+- answer the questions
+- rate the questions
+
 ## MEAN Stack with Angular 5
 
 This is an application demonstrating the basic components needed for a Single Page Application using MongoDB, ExpressJS, Angular 5, and NodeJS.
